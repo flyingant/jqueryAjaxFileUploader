@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Test Ajax Upload</title>
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+    <script src="js/jqueryAjaxFileUploader.js"></script>
+</head>
+<body>
+<h1>Hello FlyingAnt</h1>
+
+<form id="ajaxUploadForm">
+    <legend>Test Uploader</legend>
+    <input id="file" name="file" type="file">
+    <input type="submit" value="Upload">
+</form>
+
+<script>
+    $(document).ready(function () {
+        $("#ajaxUploadForm input[type=submit]").click(function (event) {
+            console.log("Target ", $(event.currentTarget));
+            $.ajaxUpload({
+                url: "/JqueryAjaxFileUploader/upload",
+                fileContainerId: "ajaxUploadForm",
+                data: {
+                    message: "Test Message",
+                    type: "Test"
+                },
+                success: function (data, status) {
+                    alert("Name:"+data.fileName+", mimeType:"+data.mimeType+", size:"+data.size);
+                    console.log("Results:"+ data);
+                },
+                error: function (data, status, e) {
+                    alert("Server Error");
+                }
+            });
+            return false
+        });
+    })
+</script>
+</body>
+</html>
